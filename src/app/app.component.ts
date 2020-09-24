@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  courses$;
+  dbFire: AngularFireList<any>;
+  courses$: Observable<any>;
   course$;
   author$;
 
@@ -18,6 +20,22 @@ export class AppComponent {
     this.course$ = db.object('/courses/1').valueChanges();
 
     this.author$ = db.object('/authors/1').valueChanges();
+
+    this.dbFire = db.list('/courses');
+  }
+
+  add(course: HTMLInputElement){
+    this.dbFire.push({
+      name: course.value,
+      price: 150,
+      isLive: true,
+      sections: [
+        { title: 'Components'},
+        { title: 'Directives'},
+        { title: 'Template'}
+      ]
+    });
+    course.value = '';
   }
 
 }
