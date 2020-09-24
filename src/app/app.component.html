@@ -1,7 +1,8 @@
 <input type="text" (keyup.enter)="add(course)" #course>
 <ul>
-  <li *ngFor="let course of courses$ | async" >
+  <li *ngFor="let course of courses$ | async">
     {{course.payload.val()}}
     <button (click)="update(course)">Update</button>
+    <button (click)="delete(course)">Delete</button>
   </li>
 </ul>

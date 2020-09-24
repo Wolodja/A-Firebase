@@ -30,4 +30,8 @@ export class AppComponent {
     this.db.object('/courses/' + key).set(course.payload.val() + ' UPDATED');
   }
 
+  delete(course) {
+    const key = course.payload.key;
+    this.db.object('/courses/' + key).remove();
+  }
 }
